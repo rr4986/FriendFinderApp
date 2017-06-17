@@ -148,8 +148,32 @@
       </div>
       </footer>
 
+<!-- Modal -->
+	<div id="resultsModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title"><strong>Best Match</strong></h2>
+	      </div>
+	      <div class="modal-body">
+	        <h2 id="matchName"></h2>
+	        <img id="matchImg" src="" alt="">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
 </body>
 </html>
+
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 <script type="text/javascript">
@@ -169,9 +193,13 @@
 
       $.post("/api/friends", newFriend,
         function(data) {
-//************************************************************************
-//This is where it should show a result with the best match Fix this later
-//************************************************************************
+
+            // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+            $("#matchName").text(data.name);
+            $('#matchImg').attr("src", data.photo);
+
+            // Show the modal with the best match 
+            $("#resultsModal").modal('toggle');
 
             $("#name").val("");
             $("#photolink").val("");
@@ -185,6 +213,7 @@
             $("#q8").val("");
             $("#q9").val("");
             $("#q10").val("");
+
         });
 
     });
